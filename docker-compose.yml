@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.1
+    container_name: logstash
+    volumes:
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logs:/logs:ro
+      - ./logstash/secrets:/usr/share/logstash/secrets:ro
+    environment:
+      - CLOUD_ID=${ELASTIC_CLOUD_ID}
+      - ELASTIC_API_KEY=${ELASTIC_LOGSTASH_API_KEY}
+      - LS_JAVA_OPTS=-Xmx256m -Xms256m
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    networks:
+      - elastic
+    restart: unless-stopped
+
+networks:
+  elastic:
+    driver: bridge
