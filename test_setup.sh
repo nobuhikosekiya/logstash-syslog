@@ -78,10 +78,8 @@ main() {
   
   # Set default port if not specified, based on protocol
   if [[ -z "$ES_PORT" ]]; then
-    # Extract protocol from the endpoint
-    PROTOCOL=$(echo "$ES_ENDPOINT" | grep -o "^https\?://")
-    
-    if [[ "$PROTOCOL" == "https://" ]]; then
+    # Use simple string matching to check for HTTPS
+    if [[ "$ES_ENDPOINT" =~ ^https:// ]]; then
       echo "ES_PORT not set, defaulting to 443 for HTTPS"
       ES_PORT=443
     else
@@ -156,7 +154,7 @@ main() {
 
   # Monitor log processing using curl directly
   echo "Monitoring log processing progress..."
-  MAX_WAIT=300  # 5 minutes max wait time
+  MAX_WAIT=30  # 30 seconds max wait time
   start_time=$(date +%s)
   processed_lines=0
   last_processed=0
