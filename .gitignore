@@ -1,2 +1,21 @@
+# Environment variables
 .env
+
+# Log files and downloaded logs
 logs/*
+*.log
+logs/*.tar.gz
+
+# Python virtual environment and cache
+venv/
+__pycache__/
+*.py[cod]
+
+# Logstash tracking files
+.sincedb*
+
+# Temporary files
+.DS_Store
+
+# Test reports
+test_report.md

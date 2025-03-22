@@ -10,7 +10,8 @@ services:
       - ./logs:/logs:ro
       - ./logstash/secrets:/usr/share/logstash/secrets:ro
     environment:
-      - CLOUD_ID=${ELASTIC_CLOUD_ID}
+      - ES_ENDPOINT=${ES_ENDPOINT}
+      - ES_PORT=${ES_PORT}
       - ELASTIC_API_KEY=${ELASTIC_LOGSTASH_API_KEY}
       - LS_JAVA_OPTS=-Xmx256m -Xms256m
     ports:
